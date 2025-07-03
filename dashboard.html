@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>101CODE - Dashboard</title>
+  <style>
+    body {
+      background: #0a2740;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      margin: 0;
+      text-align: center;
+    }
+    .navbar {
+      background: #001d33;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    }
+    .navbar .logo {
+      font-size: 1.8rem;
+      color: #ffffff;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .navbar nav a {
+      margin-left: 1rem;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .navbar nav a:hover {
+      color: #00c8ff;
+    }
+    .navbar nav a.login-btn {
+      background-color: #5598fc;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-left: 1rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .navbar nav a.login-btn:hover {
+      background-color: #cc0000;
+      color: white;
+    }
+
+    main.dashboard {
+      max-width: 1000px;
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
+      text-align: left;
+    }
+    .welcome-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 1.5rem;
+    }
+    .welcome-container h1 {
+      color: white;
+      font-weight: 700;
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    h2 {
+      color: white;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: #004080;
+      padding: 1.5rem;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease;
+      border: 2px solid transparent;
+      text-align: left;
+      color: #e1f0ff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      background: #0066cc;
+      border-color: #00c8ff;
+      color: white;
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #d0eaff;
+      font-weight: 700;
+    }
+    .expand-icon {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+      color: #00c8ff;
+      user-select: none;
+    }
+    .phases {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      margin-top: 1rem;
+    }
+    .phases ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .phases li {
+      padding: 0.4rem 0;
+      font-weight: 600;
+      color: #c8def5;
+    }
+    .done { color: #00ff99; }
+    .pending { color: #ccc; }
+    .continue-btn {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #00c8ff;
+      color: #003b66;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: none;
+      transition: background 0.3s ease;
+    }
+    .continue-btn:hover {
+      background: #008ecf;
+      color: white;
+    }
+    .mascote-img {
+      width: 150px;
+      float: right;
+      margin-top: -60px;
+      user-select: none;
+      pointer-events: none;
+      position: relative;
+      z-index: 5;
+    }
+    /* Mascote sobreposto no card certificado */
+    .certificado-card {
+      position: relative;
+    }
+    .certificado-card .mascote-img-certificado {
+      position: absolute;
+      top: 90px;
+      right: -20px;
+      width: 110px;
+      pointer-events: none;
+      user-select: none;
+      z-index: 10;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: #a8cfff;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+    .continue-alert {
+      background: #ffcc00;
+      color: #333;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      box-shadow: 0 2px 6px #ffcc0066;
+    }
+    .progress-bar-container {
+      background: #005b99;
+      border-radius: 12px;
+      height: 18px;
+      width: 100%;
+      margin: 1rem 0 0.5rem;
+      box-shadow: inset 0 0 6px #004a80;
+    }
+    .progress-bar-fill {
+      background: #00c8ff;
+      height: 100%;
+      border-radius: 12px;
+      width: 0;
+      transition: width 0.6s ease;
+      box-shadow: 0 0 8px #00c8ffcc;
+    }
+    /* Seção Feedback */
+    .feedback-section {
+      background: #003355;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 3rem;
+      color: #e1f0ff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    }
+    .feedback-section h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .feedback-section textarea {
+      width: 100%;
+      min-height: 100px;
+      border-radius: 8px;
+      border: none;
+      padding: 0.75rem;
+      font-size: 1rem;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .feedback-section button {
+      margin-top: 0.75rem;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background: #00c8ff;
+      color: #003b66;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .feedback-section button:hover {
+      background: #008ecf;
+      color: white;
+    }
+    /* Materiais Complementares */
+    .materiais-section {
+      background: linear-gradient(135deg, #003a66);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 3rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      color: #3799fc;
+    }
+    .materiais-section h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    
+    }
+    .materiais-list li a {
+      color: #ffffff;
+    }
+    .materiais-list li a:hover {
+      color: #00c8ff;
+      text-decoration: underline;
+    }
+
+    /* Eventos/Lives */
+    .eventos-section {
+      margin-top: 3rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #c8def5;
+    }
+    .eventos-section h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: white;
+      font-weight: 700;
+    }
+    .eventos-list {
+      list-style: none;
+      padding: 0;
+      font-size: 1.1rem;
+    }
+    .eventos-list li {
+      margin-bottom: 1rem;
+      padding: 0.6rem 1rem;
+      background: #003a66;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+    .eventos-list li time {
+      font-weight: 700;
+      color: #00c8ff;
+      margin-right: 1rem;
+    }
+
+    /*  CONQUISTAS e DESAFIOS */
+    section.conquistas-section,
+    section.desafios-section {
+      margin-top: 3rem;
+    }
+
+    .conquistas-section .card, .desafios-section .card {
+      cursor: default;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 1.25rem;
+      font-weight: 600;
+      padding: 1.5rem 2rem;
+      background: #005b99;
+      color: #bde0ff;
+      box-shadow: 0 4px 8px rgba(0, 91, 153, 0.6);
+      border-radius: 12px;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    .conquistas-section .card span.pontos {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #00e0ff;
+    }
+    .desafios-section .card {
+      cursor: pointer;
+      justify-content: center;
+      color: #00c8ff;
+      font-weight: 700;
+      border: 2px solid #00c8ff;
+    }
+    .desafios-section .card:hover {
+      background: #007acc;
+      color: #ffffff;
+      box-shadow: 0 0 10px #00c8ffaa;
+    }
+
+    /* Nova área de desafios expandida - escondida por padrão */
+    #desafiosConteudo {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      background: #003b66;
+      margin-top: 1rem;
+      border-radius: 12px;
+      padding: 0 1.5rem;
+      color: #cceeff;
+      font-size: 1rem;
+      user-select: text;
+    }
+    #desafiosConteudo.show {
+      max-height: 500px; /* ajuste conforme conteúdo */
+      padding: 1rem 1.5rem;
+    }
+    #desafiosConteudo ul {
+      list-style-type: disc;
+      margin-left: 1.5rem;
+      padding-left: 0;
+    }
+    #desafiosConteudo li {
+      margin-bottom: 0.6rem;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">101CODE</div>
+    <nav>
+      <a href="dashboard.html">Início</a>
+      <a href="perfil.html">Perfil</a>
+      <a href="comecar.html">Comece Aqui</a>
+      <a href="index.html" class="login-btn">Sair</a>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <div class="welcome-container">
+      <h1>Bem-vindo de volta!</h1>
+    </div>
+
+    <div id="alertaProgresso"></div>
+
+    <section>
+      <h2>Suas Trilhas de Programação</h2>
+      <div class="cards" id="linguagemCards"></div>
+    </section>
+
+    <section style="margin-top: 3rem;">
+      <h2>Certificados Disponíveis</h2>
+      <div class="cards" id="certificadoCards"></div>
+    </section>
+
+    <!-- NOVA SEÇÃO CONQUISTAS -->
+    <section class="conquistas-section">
+      <h2>Suas Conquistas</h2>
+      <div class="card" id="conquistasCard">
+        <div>Pontos Acumulados:</div>
+        <span class="pontos" id="pontosUsuario">0</span>
+      </div>
+    </section>
+
+    <!-- NOVA SEÇÃO DESAFIOS -->
+    <section class="desafios-section" aria-label="Seção de desafios para o usuário">
+      <h2>Desafios</h2>
+      <div
+        class="card"
+        id="desafiosCard"
+        tabindex="0"
+        role="button"
+        aria-pressed="false"
+        aria-expanded="false"
+        aria-controls="desafiosConteudo"
+      >
+        Clique para ver os Desafios
+      </div>
+
+      <!-- Conteúdo oculto dos desafios -->
+      <div id="desafiosConteudo" aria-hidden="true">
+        <ul>
+          <li>Desafio 1: Complete a fase 1 da trilha Python.</li>
+          <li>Desafio 2: Responda corretamente 5 perguntas da fase 2 em Java.</li>
+          <li>Desafio 3: Revise conceitos básicos de C.</li>
+          <li>Desafio 4: Participe do próximo webinar ao vivo.</li>
+          <li>Desafio 5: Envie seu feedback para ganhar pontos extras.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Materiais Complementares -->
+    <section class="materiais-section">
+      <h2>Materiais Complementares</h2>
+      <ul class="materiais-list">
+        <li><a href="https://docs.python.org/3/tutorial/" target="_blank" rel="noopener">Tutorial Oficial Python</a></li>
+        <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript" target="_blank" rel="noopener">Documentação MDN JavaScript</a></li>
+        <li><a href="https://www.cprogramming.com/tutorial/c-tutorial.html" target="_blank" rel="noopener">Guia Completo C Programming</a></li>
+        <li><a href="https://www.youtube.com/playlist?list=PLzvRQMJ9HDiQ6sxZ8bB5-KrIks6q9av0A" target="_blank" rel="noopener">Playlist Java para Iniciantes</a></li>
+      </ul>
+    </section>
+
+    <!-- Eventos / Lives -->
+    <section class="eventos-section">
+      <h2>Eventos & Lives</h2>
+      <ul class="eventos-list">
+        <li><time>25/06/2025</time>Live: Como dominar Python em 30 dias</li>
+        <li><time>02/07/2025</time>Webinar: Introdução ao Desenvolvimento Web</li>
+        <li><time>15/07/2025</time>Workshop: Algoritmos e Estruturas de Dados</li>
+      </ul>
+    </section>
+
+    <!-- Feedback -->
+    <section class="feedback-section">
+      <h2>Deixe seu Feedback</h2>
+      <textarea id="feedbackText" placeholder="Escreva sua sugestão ou comentário aqui..."></textarea>
+      <button onclick="enviarFeedback()">Enviar Feedback</button>
+      <p id="feedbackStatus" style="margin-top: 0.8rem;"></p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 101CODE</p>
+  </footer>
+
+  <script>
+    const linguagens = ['java', 'c', 'python'];
+    const container = document.getElementById('linguagemCards');
+    const certificadoContainer = document.getElementById('certificadoCards');
+    const alerta = document.getElementById('alertaProgresso');
+    const pontosUsuarioEl = document.getElementById('pontosUsuario');
+    const desafiosCard = document.getElementById('desafiosCard');
+    const desafiosConteudo = document.getElementById('desafiosConteudo');
+
+    linguagens.forEach(lang => {
+      let fases = [];
+      let ultimaFaseParada = localStorage.getItem(lang + '_ultima_fase');
+      let ultimaPerguntaParada = null;
+
+      if (ultimaFaseParada !== null) {
+        ultimaPerguntaParada = localStorage.getItem(lang + '_fase' + ultimaFaseParada + '_pergunta');
+      }
+
+      for (let i = 1; i <= 3; i++) {
+        const done = localStorage.getItem(lang + '_fase' + i + '_done') === 'true';
+        fases.push({ fase: i, done: done });
+      }
+
+      const fasesConcluidasCount = fases.filter(f => f.done).length;
+      const todasConcluidas = fasesConcluidasCount === 3;
+      if (todasConcluidas) {
+        localStorage.setItem(lang + '_trilha_concluida', 'true');
+      }
+
+      const proximaFase = ultimaFaseParada !== null ? parseInt(ultimaFaseParada) : 1;
+
+      // Cards das Trilhas
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      card.innerHTML = `
+        <img src="img/mascote-${lang}.png" class="mascote-img" alt="Mascote ${lang}">
+        <h3>${lang.toUpperCase()}</h3>
+        <p>${fasesConcluidasCount}/3 fases concluídas</p>
+
+        <div class="progress-bar-container" aria-label="Progresso da trilha ${lang}">
+          <div class="progress-bar-fill" style="width: ${(fasesConcluidasCount/3)*100}%"></div>
+        </div>
+
+        <span class="expand-icon">▼</span>
+        <div class="phases">
+          <ul>
+            ${fases.map(f => `
+              <li class="${f.done ? 'done' : 'pending'}">
+                Fase ${f.fase} - ${f.done ? '✔ Concluída' : '🕒 Pendente'}
+              </li>`).join('')}
+          </ul>
+          ${todasConcluidas
+            ? `<button class="continue-btn" onclick="location.href='trilha${lang}.html'">Revisar Trilha</button>`
+            : `<button class="continue-btn" onclick="irParaFase('${lang}', ${proximaFase})">Continuar</button>`}
+        </div>
+      `;
+      container.appendChild(card);
+
+      card.addEventListener('click', () => {
+        const ph = card.querySelector('.phases');
+        const icon = card.querySelector('.expand-icon');
+        if (ph.style.maxHeight) {
+          ph.style.maxHeight = null;
+          icon.style.transform = '';
+        } else {
+          ph.style.maxHeight = ph.scrollHeight + 'px';
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+
+      // Alerta de progresso
+      if (!todasConcluidas && ultimaFaseParada !== null && ultimaPerguntaParada !== null && !isNaN(parseInt(ultimaPerguntaParada))) {
+        alerta.innerHTML += `
+          <div class="continue-alert">
+            ⚠️ Você parou na questão ${parseInt(ultimaPerguntaParada)+1} da Fase ${ultimaFaseParada} de ${lang.toUpperCase()}.
+            <button class="continue-btn" onclick="retomarFase('${lang}', ${ultimaFaseParada})">Retomar</button>
+          </div>
+        `;
+      }
+
+      // Cards de Certificados
+      if (todasConcluidas) {
+        const certCard = document.createElement('div');
+        certCard.className = 'card certificado-card';
+        certCard.innerHTML = `
+          <h3>Certificado - ${lang.toUpperCase()}</h3>
+          <p>Parabéns! Você concluiu a trilha de ${lang.toUpperCase()}.</p>
+          <button class="continue-btn" onclick="location.href='certificado.html?linguagem=${lang}'">Visualizar Certificado</button>
+          <img src="img/certificado.png" class="mascote-img-certificado" alt="Mascote certificado ${lang}">
+        `;
+        certificadoContainer.appendChild(certCard);
+      }
+    });
+
+    // Calcula pontos acumulados para seção Conquistas
+    function calcularPontos() {
+      let pontos = 0;
+      linguagens.forEach(lang => {
+        for(let i = 1; i <= 3; i++) {
+          if(localStorage.getItem(lang + '_fase' + i + '_done') === 'true') {
+            pontos += 10; // por exemplo, 10 pontos por fase concluída
+          }
+        }
+      });
+      return pontos;
+    }
+
+    // Atualiza os pontos na tela
+    function atualizarConquistas() {
+      const pontos = calcularPontos();
+      pontosUsuarioEl.textContent = pontos;
+    }
+
+    atualizarConquistas();
+
+    // Toggle área desafios (nova funcionalidade)
+    function toggleDesafios() {
+      const expanded = desafiosCard.getAttribute('aria-expanded') === 'true';
+      if (expanded) {
+        desafiosConteudo.classList.remove('show');
+        desafiosCard.setAttribute('aria-expanded', 'false');
+        desafiosConteudo.setAttribute('aria-hidden', 'true');
+      } else {
+        desafiosConteudo.classList.add('show');
+        desafiosCard.setAttribute('aria-expanded', 'true');
+        desafiosConteudo.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    desafiosCard.addEventListener('click', () => {
+      toggleDesafios();
+    });
+    desafiosCard.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleDesafios();
+      }
+    });
+
+    function irParaFase(lang, fase) {
+      window.location.href = 'fase' + fase + lang + '.html';
+    }
+
+    function retomarFase(lang, fase) {
+      window.location.href = 'fase' + fase + lang + '.html';
+    }
+
+    function enviarFeedback() {
+      const feedback = document.getElementById('feedbackText').value.trim();
+      const status = document.getElementById('feedbackStatus');
+      if (feedback.length === 0) {
+        status.style.color = '#ff6666';
+        status.textContent = 'Por favor, escreva algo antes de enviar.';
+        return;
+      }
+      // Aqui você pode implementar envio via API ou backend, por enquanto só exibe mensagem
+      status.style.color = '#00ff99';
+      status.textContent = 'Obrigado pelo seu feedback!';
+      document.getElementById('feedbackText').value = '';
+      // Simulação de envio com delay
+      setTimeout(() => {
+        status.textContent = '';
+      }, 4000);
+    }
+  </script>
+
+</body>
+</html>

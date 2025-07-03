@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Revisão da Trilha C - 101CODE</title>
+  <style>
+body {
+  background: #0a2740;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0; padding: 2rem;
+  color: #e1f0ff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scroll-behavior: smooth;
+}
+
+h1 {
+  text-align: center;
+  color: #00c8ff;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.btn-voltar {
+  background-color: #005b99;
+  color: #cceeff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  margin-bottom: 2.5rem;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.btn-voltar:hover,
+.btn-voltar:focus {
+  background-color: #008ecf;
+  color: white;
+  outline: none;
+}
+
+.cards {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3rem;
+  max-width: 960px;
+  width: 100%;
+}
+
+.card {
+  background: #004080;
+  border-radius: 12px;
+  width: 220px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  color: #cceeff;
+}
+.card:hover {
+  transform: scale(1.05);
+  background: #007acc;
+  color: white;
+}
+
+.card img {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 1rem;
+  user-select: none;
+  pointer-events: none;
+}
+
+.card h2 {
+  color: #00c8ff;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.card p {
+  color: #bde0ff;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.btn-revisar {
+  background-color: #00c8ff;
+  color: #003b66;
+  border: none;
+  border-radius: 12px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+}
+.btn-revisar:hover,
+.btn-revisar:focus {
+  background-color: #008ecf;
+  color: white;
+  outline: none;
+}
+
+.revisao {
+  max-width: 720px;
+  width: 100%;
+  background: #004080;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  color: #cceeff;
+  display: none; /* começa escondida */
+  user-select: text;
+}
+.revisao.active {
+  display: block;
+}
+
+.revisao h2 {
+  color: #00c8ff;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #007acc;
+  padding-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.pergunta {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #007acc;
+}
+
+.pergunta strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #00bfff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.resposta {
+  font-weight: 700;
+  color: #00ff99; /* verde */
+  margin-bottom: 0.4rem;
+}
+
+.explicacao {
+  font-size: 0.95rem;
+  color: #a8d0ff;
+  line-height: 1.4;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <h1>Revisão Completa - Trilha C</h1>
+
+  <a href="dashboard.html" class="btn-voltar">Voltar ao Início</a>
+
+  <div class="cards">
+    <!-- Card Fase 1 -->
+    <div class="card" data-fase="1">
+      <img src="img/feliz.png" alt="Mascote Fase 1" />
+      <h2>Fase 1: Conceitos Básicos</h2>
+      <p>Estrutura básica, printf, tipos e laços.</p>
+      <button class="btn-revisar" onclick="mostrarRevisao(1)">Revisar</button>
+    </div>
+    <!-- Card Fase 2 -->
+    <div class="card" data-fase="2">
+      <img src="img/concentrado.png" alt="Mascote Fase 2" />
+      <h2>Fase 2: Variáveis e Comentários</h2>
+      <p>Declaração, comentários, bibliotecas e constantes.</p>
+      <button class="btn-revisar" onclick="mostrarRevisao(2)">Revisar</button>
+    </div>
+    <!-- Card Fase 3 -->
+    <div class="card" data-fase="3">
+      <img src="img/escrevendo.png" alt="Mascote Fase 3" />
+      <h2>Fase 3: Condicionais e Loops</h2>
+      <p>Condicionais if, switch e loops.</p>
+      <button class="btn-revisar" onclick="mostrarRevisao(3)">Revisar</button>
+    </div>
+  </div>
+
+  <!-- Revisões -->
+  <section class="revisao" id="revisao-fase1">
+    <h2>Fase 1 - Conceitos Básicos</h2>
+    <div class="pergunta">
+      <strong>1. Qual das opções imprime 'Olá, mundo!' corretamente em C?</strong>
+      <div class="resposta">Resposta: printf("Olá, mundo!");</div>
+      <div class="explicacao">A função printf() é usada para imprimir texto na tela em C. As outras opções são sintaxes de outras linguagens.</div>
+    </div>
+    <div class="pergunta">
+      <strong>2. Qual tipo de dado armazena números inteiros em C?</strong>
+      <div class="resposta">Resposta: int</div>
+      <div class="explicacao">O tipo int é usado para armazenar números inteiros, ou seja, sem casas decimais.</div>
+    </div>
+    <div class="pergunta">
+      <strong>3. Qual símbolo termina uma linha de código em C?</strong>
+      <div class="resposta">Resposta: ;</div>
+      <div class="explicacao">O ponto e vírgula (;) indica o fim de uma instrução em C, essencial para separar comandos.</div>
+    </div>
+    <div class="pergunta">
+      <strong>4. Qual das opções cria um loop que executa 10 vezes?</strong>
+      <div class="resposta">Resposta: for (int i=0; i<10; i++) { }</div>
+      <div class="explicacao">O laço for inicializa uma variável, verifica uma condição e incrementa, repetindo o bloco 10 vezes.</div>
+    </div>
+    <div class="pergunta">
+      <strong>5. Qual comando lê um valor digitado pelo usuário?</strong>
+      <div class="resposta">Resposta: scanf()</div>
+      <div class="explicacao">A função scanf() é usada para ler entrada do usuário no console em C.</div>
+    </div>
+  </section>
+
+  <section class="revisao" id="revisao-fase2">
+    <h2>Fase 2 - Variáveis, Comentários e Bibliotecas</h2>
+    <div class="pergunta">
+      <strong>1. Como declaramos uma variável inteira em C?</strong>
+      <div class="resposta">Resposta: int numero = 10;</div>
+      <div class="explicacao">Em C, declaramos variáveis especificando o tipo seguido do nome e valor opcional.</div>
+    </div>
+    <div class="pergunta">
+      <strong>2. Como fazemos um comentário de uma linha em C?</strong>
+      <div class="resposta">Resposta: //comentário</div>
+      <div class="explicacao">Comentários de uma linha em C começam com duas barras (//).</div>
+    </div>
+    <div class="pergunta">
+      <strong>3. Qual comando usamos para imprimir um número inteiro?</strong>
+      <div class="resposta">Resposta: printf("%d", numero);</div>
+      <div class="explicacao">O formato %d é usado em printf para imprimir valores inteiros.</div>
+    </div>
+    <div class="pergunta">
+      <strong>4. Como incluir a biblioteca padrão de entrada e saída?</strong>
+      <div class="resposta">Resposta: #include &lt;stdio.h&gt;</div>
+      <div class="explicacao">A biblioteca stdio.h contém funções básicas de entrada e saída em C.</div>
+    </div>
+    <div class="pergunta">
+      <strong>5. Como declaramos uma constante em C?</strong>
+      <div class="resposta">Resposta: const int x = 5;</div>
+      <div class="explicacao">A palavra-chave const torna a variável constante, não podendo ser modificada.</div>
+    </div>
+  </section>
+
+  <section class="revisao" id="revisao-fase3">
+    <h2>Fase 3 - Condicionais e Loops</h2>
+    <div class="pergunta">
+      <strong>1. Qual estrutura condicional em C está correta?</strong>
+      <div class="resposta">Resposta: if (x > 10) { printf("Maior"); }</div>
+      <div class="explicacao">Estruturas if usam parênteses para condição e chaves para o bloco a executar.</div>
+    </div>
+    <div class="pergunta">
+      <strong>2. Como fazemos um loop infinito em C?</strong>
+      <div class="resposta">Resposta: for(;;)</div>
+      <div class="explicacao">Um for sem condição cria um loop infinito.</div>
+    </div>
+    <div class="pergunta">
+      <strong>3. Como declarar um array de 5 inteiros em C?</strong>
+      <div class="resposta">Resposta: int numeros[5];</div>
+      <div class="explicacao">Arrays são declarados especificando o tipo, nome e tamanho entre colchetes.</div>
+    </div>
+    <div class="pergunta">
+      <strong>4. Qual operador é usado para comparar igualdade em C?</strong>
+      <div class="resposta">Resposta: ==</div>
+      <div class="explicacao">O operador == compara valores para verificar igualdade.</div>
+    </div>
+    <div class="pergunta">
+      <strong>5. Como encerramos um programa com sucesso em C?</strong>
+      <div class="resposta">Resposta: return 0;</div>
+      <div class="explicacao">return 0; indica que o programa terminou corretamente.</div>
+    </div>
+  </section>
+
+<script>
+  function mostrarRevisao(fase) {
+    // Esconde todas as revisões
+    document.querySelectorAll('.revisao').forEach(section => {
+      section.classList.remove('active');
+    });
+
+    // Mostra a revisão selecionada
+    const rev = document.getElementById(`revisao-fase${fase}`);
+    if (rev) {
+      rev.classList.add('active');
+      // Opcional: rolar suavemente para a revisão
+      rev.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
+
+</body>
+</html>

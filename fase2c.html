@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>101CODE - Fase 2 (C)</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+     body {
+  background: #0a2740;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 2rem;
+  color: #e1f0ff;
+  margin: 0;
+}
+
+.fase-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #003a66;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: #c8def5;
+}
+
+.fase-container h2 {
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: #00c8ff;
+}
+
+.opcao {
+  background: #004a80;
+  border: 2px solid transparent;
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #d0eaff;
+  user-select: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.opcao:hover {
+  border-color: #00c8ff;
+  background: #006bbd;
+  color: white;
+  box-shadow: 0 4px 12px #00c8ff88;
+}
+
+.opcao.selecionada {
+  border-color: #00c8ff;
+  background: #008ed7;
+  color: white;
+  box-shadow: 0 0 15px #00c8ffcc;
+}
+
+.feedback {
+  font-weight: 700;
+  margin-top: 1rem;
+  display: none;
+  text-shadow: 0 0 3px rgba(0,0,0,0.7);
+}
+
+.feedback.correto {
+  color: #00ff99;
+}
+
+.feedback.incorreto {
+  color: #ff6b6b;
+}
+
+.btn-proxima,
+#btnFinalizar {
+  margin-top: 2rem;
+  padding: 0.75rem 2rem;
+  border: none;
+  background: #00c8ff;
+  color: #003b66;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 700;
+  display: none;
+  transition: background 0.3s ease;
+}
+
+.btn-proxima:hover,
+#btnFinalizar:hover {
+  background: #008ecf;
+  color: white;
+  
+}
+
+#mascote {
+  display: none;
+  margin: 2rem auto 0;
+  width: 150px;
+  max-width: 100%;
+  filter: drop-shadow(0 0 5px #00c8ffaa);
+}
+
+.btn-sair {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  background: #cc4444;
+  color: white;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 0 8px #cc4444cc;
+  transition: background 0.3s ease;
+}
+
+.btn-sair:hover {
+  background: #aa2222;
+  box-shadow: 0 0 12px #aa2222cc;
+}
+  </style>
+</head>
+<body>
+
+  <script src="js/progresso.js"></script>
+
+  <div class="fase-container">
+    <h2>Fase 2 - Linguagem C</h2>
+    <div id="pergunta"></div>
+    <div id="opcoes"></div>
+    <div id="feedback" class="feedback"></div>
+    <button class="btn-proxima" id="btnProxima" onclick="proximaPergunta()">Próxima Pergunta</button>
+
+    <img id="mascote" src="img/festa.png" alt="Mascote 101CODE" />
+    <button class="btn-proxima" id="btnFinalizar" onclick="finalizarFase()">Salvar Progresso e Ir para a Fase 3 🚀</button>
+  
+    <button class="btn-sair" onclick="sairDaFase()">Sair da Fase e Salvar Progresso</button>
+  </div>
+
+  <script>
+    const perguntas = [
+      {
+        pergunta: "1. Como declaramos uma variável inteira em C?",
+        opcoes: ["let numero = 10;", "numero := 10", "int numero = 10;", "numero = 10"],
+        resposta: "int numero = 10;"
+      },
+      {
+        pergunta: "2. Como fazemos um comentário de uma linha em C?",
+        opcoes: ["#comentário", "//comentário", "--comentário", "/*comentário*/"],
+        resposta: "//comentário"
+      },
+      {
+        pergunta: "3. Qual comando usamos para imprimir um número inteiro?",
+        opcoes: ["printf(\"%d\", numero);", "print(numero);", "cout << numero;", "echo $numero;"],
+        resposta: "printf(\"%d\", numero);"
+      },
+      {
+        pergunta: "4. Como incluir a biblioteca padrão de entrada e saída?",
+        opcoes: ["#include <stdlib.h>", "#include <stdio.h>", "import stdio", "using namespace std;"],
+        resposta: "#include <stdio.h>"
+      },
+      {
+        pergunta: "5. Como declaramos uma constante em C?",
+        opcoes: ["const int x = 5;", "let x = 5;", "final int x = 5;", "#define x 5"],
+        resposta: "const int x = 5;"
+      }
+    ];
+
+    let indiceAtual = 0;
+
+    // Recuperar progresso salvo (se houver)
+    const progressoSalvo = localStorage.getItem('c_fase2_pergunta');
+    if (progressoSalvo !== null && !isNaN(parseInt(progressoSalvo))) {
+      indiceAtual = parseInt(progressoSalvo);
+    }
+
+    function carregarPergunta() {
+      const p = perguntas[indiceAtual];
+      document.getElementById('pergunta').innerHTML = `<h3>${p.pergunta}</h3>`;
+      const opcoesDiv = document.getElementById('opcoes');
+      opcoesDiv.innerHTML = '';
+
+      p.opcoes.forEach(opcao => {
+        const div = document.createElement('div');
+        div.className = 'opcao';
+        div.textContent = opcao;
+        div.onclick = () => verificar(div, p.resposta);
+        opcoesDiv.appendChild(div);
+      });
+
+      document.getElementById('feedback').style.display = 'none';
+      document.getElementById('btnProxima').style.display = 'none';
+    }
+
+    function verificar(elemento, respostaCorreta) {
+      document.querySelectorAll('.opcao').forEach(op => op.classList.remove('selecionada'));
+      elemento.classList.add('selecionada');
+
+      const feedback = document.getElementById('feedback');
+      if (elemento.textContent === respostaCorreta) {
+        feedback.textContent = '✅ Resposta correta!';
+        feedback.className = 'feedback correto';
+        document.getElementById('btnProxima').style.display = 'inline-block';
+      } else {
+        feedback.textContent = '❌ Resposta incorreta. Tente novamente.';
+        feedback.className = 'feedback incorreto';
+      }
+      feedback.style.display = 'block';
+    }
+
+    function proximaPergunta() {
+      indiceAtual++;
+
+      // Salvar progresso da fase 2
+      localStorage.setItem('c_ultima_fase', 2);
+      localStorage.setItem('c_fase2_pergunta', indiceAtual);
+
+      if (indiceAtual < perguntas.length) {
+        carregarPergunta();
+      } else {
+        document.getElementById('pergunta').innerHTML = "<h3>Parabéns! Você concluiu todas as perguntas da Fase 2!</h3>";
+        document.getElementById('opcoes').style.display = 'none';
+        document.getElementById('btnProxima').style.display = 'none';
+        document.getElementById('feedback').style.display = 'none';
+        document.getElementById('mascote').style.display = 'block';
+        document.getElementById('btnFinalizar').style.display = 'inline-block';
+      }
+    }
+
+    function finalizarFase() {
+      marcarFaseConcluida('c', 2);
+      window.location.href = 'fase3c.html';
+    }
+
+    function sairDaFase() {
+      const confirmar = confirm("Deseja salvar seu progresso antes de sair?");
+      if (confirmar) {
+        localStorage.setItem('c_ultima_fase', 2);
+        localStorage.setItem('c_fase2_pergunta', indiceAtual);
+        alert("Progresso salvo! Você pode continuar depois pelo Dashboard.");
+        window.location.href = 'dashboard.html';
+      } else {
+        window.location.href = 'dashboard.html';
+      }
+    }
+
+    // Inicializa a pergunta correta
+    carregarPergunta();
+  </script>
+
+</body>
+</html>

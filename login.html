@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - 101CODE</title>
+  <style>
+    body {
+      background: #0a2740;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background: #001d33;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .navbar .logo {
+      font-size: 1.8rem;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .navbar nav a {
+      margin-left: 1rem;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .navbar nav a:hover {
+      color: #00c8ff;
+    }
+
+    main {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .auth-container {
+      display: flex;
+      background: #004080;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      overflow: hidden;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .mascote-side {
+      background: #003a66;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+
+    .mascote-side img {
+      max-width: 300px;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .form-side {
+      flex: 2;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: none;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: none;
+      background: #00c8ff;
+      color: #003b66;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #008ecf;
+      color: white;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    p a {
+      color: #00c8ff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      color: #a8cfff;
+      background: #001d33;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 700px) {
+      .auth-container {
+        flex-direction: column;
+      }
+      .mascote-side {
+        padding: 1rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">101CODE</div>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="planos.html">Planos</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="auth-container">
+
+      <div class="mascote-side">
+        <img src="img/segredo.png" alt="Mascote 101CODE" />
+      </div>
+
+      <div class="form-side">
+        <h2 id="form-title">Entrar na Plataforma</h2>
+
+        <!-- Formulário de Login -->
+        <form id="loginForm">
+          <input type="email" id="loginEmail" placeholder="E-mail" required />
+          <input type="password" id="loginSenha" placeholder="Senha" required />
+          <button type="submit">Entrar</button>
+          <p>Não tem conta? <a onclick="mostrarCadastro()">Cadastre-se</a></p>
+        </form>
+
+        <!-- Formulário de Cadastro -->
+        <form id="cadastroForm" class="hidden">
+          <input type="text" id="cadastroNome" placeholder="Nome completo" required />
+          <input type="text" id="cadastroTelefone" placeholder="Telefone" required />
+          <input type="number" id="cadastroIdade" placeholder="Idade" required />
+          <input type="text" id="cadastroCpf" placeholder="CPF" required />
+          <input type="email" id="cadastroEmail" placeholder="E-mail" required />
+          <input type="password" id="cadastroSenha" placeholder="Senha" required />
+          <button type="submit">Cadastrar</button>
+          <p>Já tem conta? <a onclick="mostrarLogin()">Entrar</a></p>
+        </form>
+
+        <p id="mensagemStatus" style="margin-top: 0.8rem;"></p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 101CODE - Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const cadastroForm = document.getElementById('cadastroForm');
+    const statusMsg = document.getElementById('mensagemStatus');
+
+    function mostrarCadastro() {
+      loginForm.classList.add('hidden');
+      cadastroForm.classList.remove('hidden');
+      document.getElementById('form-title').textContent = 'Crie sua Conta';
+      statusMsg.textContent = '';
+    }
+
+    function mostrarLogin() {
+      cadastroForm.classList.add('hidden');
+      loginForm.classList.remove('hidden');
+      document.getElementById('form-title').textContent = 'Entrar na Plataforma';
+      statusMsg.textContent = '';
+    }
+
+    cadastroForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      localStorage.setItem('cadastro_nome', document.getElementById('cadastroNome').value);
+      localStorage.setItem('cadastro_telefone', document.getElementById('cadastroTelefone').value);
+      localStorage.setItem('cadastro_idade', document.getElementById('cadastroIdade').value);
+      localStorage.setItem('cadastro_cpf', document.getElementById('cadastroCpf').value);
+      localStorage.setItem('cadastro_email', document.getElementById('cadastroEmail').value);
+      localStorage.setItem('cadastro_senha', document.getElementById('cadastroSenha').value);
+
+      statusMsg.style.color = '#00ff99';
+      statusMsg.textContent = 'Cadastro realizado com sucesso! Agora faça o login.';
+      mostrarLogin();
+    });
+
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const senha = document.getElementById('loginSenha').value;
+
+      const emailSalvo = localStorage.getItem('cadastro_email');
+      const senhaSalva = localStorage.getItem('cadastro_senha');
+
+      if (email === emailSalvo && senha === senhaSalva) {
+  statusMsg.style.color = '#00ff99';
+  statusMsg.textContent = 'Login bem-sucedido! Redirecionando...';
+
+  // Salvar o usuário logado
+  const userLogado = {
+    nome: localStorage.getItem('cadastro_nome') || 'Nome do Aluno',
+    cpf: localStorage.getItem('cadastro_cpf') || ''
+  };
+  localStorage.setItem('loggedInUser', JSON.stringify(userLogado));
+
+  setTimeout(() => {
+    window.location.href = 'dashboard.html';
+  }, 1000);
+} else {
+
+        statusMsg.style.color = '#ff6666';
+        statusMsg.textContent = 'Email ou senha incorretos!';
+      }
+    });
+  </script>
+
+</body>
+</html>

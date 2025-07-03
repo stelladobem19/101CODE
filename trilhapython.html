@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Revisão Completa - Trilha Python - 101CODE</title>
+  <style>
+   
+   
+    body {
+  background: #0a2740;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0; padding: 2rem;
+  color: #e1f0ff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scroll-behavior: smooth;
+}
+
+h1 {
+  text-align: center;
+  color: #00c8ff;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.btn-voltar {
+  background-color: #005b99;
+  color: #cceeff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  margin-bottom: 2.5rem;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.btn-voltar:hover,
+.btn-voltar:focus {
+  background-color: #008ecf;
+  color: white;
+  outline: none;
+}
+
+.cards {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3rem;
+  max-width: 960px;
+  width: 100%;
+}
+
+.card {
+  background: #004080;
+  border-radius: 12px;
+  width: 220px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  color: #cceeff;
+}
+.card:hover {
+  transform: scale(1.05);
+  background: #007acc;
+  color: white;
+}
+
+.card img {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 1rem;
+  user-select: none;
+  pointer-events: none;
+}
+
+.card h2 {
+  color: #00c8ff;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.card p {
+  color: #bde0ff;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.btn-revisar {
+  background-color: #00c8ff;
+  color: #003b66;
+  border: none;
+  border-radius: 12px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+}
+.btn-revisar:hover,
+.btn-revisar:focus {
+  background-color: #008ecf;
+  color: white;
+  outline: none;
+}
+
+.revisao {
+  max-width: 720px;
+  width: 100%;
+  background: #004080;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  color: #cceeff;
+  display: none; /* começa escondida */
+  user-select: text;
+}
+.revisao.active {
+  display: block;
+}
+
+.revisao h2 {
+  color: #00c8ff;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #007acc;
+  padding-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.pergunta {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #007acc;
+}
+
+.pergunta strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #00bfff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.resposta {
+  font-weight: 700;
+  color: #00ff99; /* verde */
+  margin-bottom: 0.4rem;
+}
+
+.explicacao {
+  font-size: 0.95rem;
+  color: #a8d0ff;
+  line-height: 1.4;
+}
+
+  </style>
+</head>
+<body>
+
+  <h1>Revisão Completa - Trilha Python</h1>
+
+  <a href="dashboard.html" class="btn-voltar">Voltar ao Início</a>
+
+  <div class="cards">
+    <!-- Card Fase 1 -->
+    <div class="card" data-fase="1">
+      <img src="img/feliz.png" alt="Mascote Fase 1" />
+      <h2>Fase 1: Olá, Mundo!</h2>
+      <p>Aprenda a imprimir mensagens com <code>print()</code>.</p>
+      <button class="btn-revisar" onclick="mostrarRevisao(1)">Revisar</button>
+    </div>
+    <!-- Card Fase 2 -->
+    <div class="card" data-fase="2">
+      <img src="img/concentrado.png" alt="Mascote Fase 2" />
+      <h2>Fase 2: Variáveis e Tipos</h2>
+      <p>Tipos básicos como int, float, str e bool.</p>
+      <button class="btn-revisar" onclick="mostrarRevisao(2)">Revisar</button>
+    </div>
+    <!-- Card Fase 3 -->
+    <div class="card" data-fase="3">
+      <img src="img/escrevendo.png" alt="Mascote Fase 3" />
+      <h2>Fase 3: Condicionais</h2>
+      <p>Use <code>if</code>, <code>elif</code> e <code>else</code>.</p>
+      <button class="btn-revisar" onclick="mostrarRevisao(3)">Revisar</button>
+    </div>
+  </div>
+
+  <!-- Revisões -->
+  <section class="revisao" id="revisao-fase1">
+    <h2>Fase 1 - Olá, Mundo!</h2>
+    <div class="pergunta">
+      <strong>1. Qual comando imprime 'Olá, mundo!' em Python?</strong>
+      <div class="resposta">Resposta: print('Olá, mundo!')</div>
+      <div class="explicacao">O comando print() exibe texto na saída padrão.</div>
+    </div>
+    <div class="pergunta">
+      <strong>2. Qual tipo de dado representa números inteiros em Python?</strong>
+      <div class="resposta">Resposta: int</div>
+      <div class="explicacao">O tipo int representa números inteiros.</div>
+    </div>
+    <div class="pergunta">
+      <strong>3. Qual símbolo usamos para comentários de uma linha em Python?</strong>
+      <div class="resposta">Resposta: #</div>
+      <div class="explicacao">Comentários de linha começam com o símbolo #.</div>
+    </div>
+    <div class="pergunta">
+      <strong>4. Como declaramos uma variável em Python?</strong>
+      <div class="resposta">Resposta: numero = 10</div>
+      <div class="explicacao">Variáveis são declaradas diretamente sem tipo explícito.</div>
+    </div>
+    <div class="pergunta">
+      <strong>5. Qual comando usamos para receber entrada do usuário?</strong>
+      <div class="resposta">Resposta: input()</div>
+      <div class="explicacao">A função input() lê dados do usuário via teclado.</div>
+    </div>
+  </section>
+
+  <section class="revisao" id="revisao-fase2">
+    <h2>Fase 2 - Variáveis e Tipos</h2>
+    <div class="pergunta">
+      <strong>1. Como declaramos uma variável inteira em Python?</strong>
+      <div class="resposta">Resposta: numero = 10</div>
+      <div class="explicacao">Não usamos tipo explícito, apenas atribuímos o valor.</div>
+    </div>
+    <div class="pergunta">
+      <strong>2. Qual tipo de dado usamos para armazenar um número com casas decimais?</strong>
+      <div class="resposta">Resposta: float</div>
+      <div class="explicacao">O tipo float armazena números decimais.</div>
+    </div>
+    <div class="pergunta">
+      <strong>3. Qual é o tipo da variável x = 'Olá Mundo'?</strong>
+      <div class="resposta">Resposta: string</div>
+      <div class="explicacao">Strings representam textos em Python.</div>
+    </div>
+    <div class="pergunta">
+      <strong>4. Como declaramos uma constante em Python (por convenção)?</strong>
+      <div class="resposta">Resposta: X = 10</div>
+      <div class="explicacao">Constantes são declaradas com nomes em maiúsculas por convenção.</div>
+    </div>
+    <div class="pergunta">
+      <strong>5. Qual comando usamos para verificar o tipo de uma variável em Python?</strong>
+      <div class="resposta">Resposta: type(x)</div>
+      <div class="explicacao">A função type() retorna o tipo do objeto.</div>
+    </div>
+  </section>
+
+  <section class="revisao" id="revisao-fase3">
+    <h2>Fase 3 - Condicionais e Loops</h2>
+    <div class="pergunta">
+      <strong>1. Qual das opções cria um loop que conta de 0 a 4 em Python?</strong>
+      <div class="resposta">Resposta: for i in range(5):</div>
+      <div class="explicacao">O loop for itera sobre a sequência de 0 a 4.</div>
+    </div>
+    <div class="pergunta">
+      <strong>2. Qual comando usamos para interromper um loop em Python?</strong>
+      <div class="resposta">Resposta: break</div>
+      <div class="explicacao">break encerra imediatamente o loop.</div>
+    </div>
+    <div class="pergunta">
+      <strong>3. Como podemos pular uma iteração específica em um loop?</strong>
+      <div class="resposta">Resposta: continue</div>
+      <div class="explicacao">continue pula a iteração atual e segue para a próxima.</div>
+    </div>
+    <div class="pergunta">
+      <strong>4. Qual das opções representa um loop while que executa enquanto x for menor que 10?</strong>
+      <div class="resposta">Resposta: while x < 10:</div>
+      <div class="explicacao">Loop while executa enquanto a condição for verdadeira.</div>
+    </div>
+    <div class="pergunta">
+      <strong>5. O que faz o comando 'pass' dentro de um loop?</strong>
+      <div class="resposta">Resposta: Não faz nada e continua</div>
+      <div class="explicacao">pass é um comando nulo que não executa ação.</div>
+    </div>
+  </section>
+
+<script>
+  function mostrarRevisao(fase) {
+    // Esconde todas as revisões
+    document.querySelectorAll('.revisao').forEach(section => {
+      section.classList.remove('active');
+    });
+
+    // Mostra a revisão selecionada
+    const rev = document.getElementById(`revisao-fase${fase}`);
+    if (rev) {
+      rev.classList.add('active');
+      rev.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
+
+</body>
+</html>

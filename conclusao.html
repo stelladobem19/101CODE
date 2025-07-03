@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Parabéns! Concluiu a Fase Básica</title>
+  <style>
+    body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #0a2740;
+  color: #c8def5;
+  text-align: center;
+  padding: 2rem;
+  margin: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 4rem auto;
+  background: #003a66;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+  color: #e1f0ff;
+}
+
+h1 {
+  color: #00c8ff;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.1rem;
+  margin: 0.5rem 0 1.5rem 0;
+  text-shadow: 0 0 4px rgba(0,0,0,0.4);
+}
+
+button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 12px;
+  background: #00c8ff;
+  color: #003b66;
+  cursor: pointer;
+  margin-top: 2rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 700;
+}
+
+button:disabled {
+  background: #4a6a8a;
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #a0bedf;
+}
+
+button:hover:not(:disabled) {
+  background: #008ecf;
+  color: white;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎉 Parabéns!</h1>
+    <p>Você concluiu a Fase Básica da trilha de <span id="linguagem"></span>.</p>
+    <p>Agora você pode gerar seu certificado.</p>
+
+    <button id="btnCertificado" disabled>
+      🎓 Gerar Certificado
+    </button>
+
+    <button id="btnPaginaInicial">
+      🏠 Página Inicial
+    </button>
+  </div>
+
+  <script src="js/progresso.js"></script>
+  <script>
+    // Pega a linguagem da URL (?linguagem=c)
+    const params = new URLSearchParams(window.location.search);
+    const linguagem = params.get('linguagem') || 'c';
+    document.getElementById('linguagem').textContent = linguagem.toUpperCase();
+
+    // Verifica se todas as fases foram concluídas e habilita botão
+    if (todasFasesConcluidas(linguagem)) {
+      document.getElementById('btnCertificado').disabled = false;
+    } else {
+      alert("Ops! Parece que você ainda não concluiu todas as fases.");
+    }
+
+    // Ao clicar, redireciona para a página do certificado
+    document.getElementById('btnCertificado').addEventListener('click', () => {
+      window.location.href = `certificado.html?linguagem=${linguagem}`;
+    });
+
+    // Botão Página Inicial redireciona para dashboard ou home
+    document.getElementById('btnPaginaInicial').addEventListener('click', () => {
+      window.location.href = 'dashboard.html'; // Ajuste se necessário
+    });
+  </script>
+
+</body>
+</html>

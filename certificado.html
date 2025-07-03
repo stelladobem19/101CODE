@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gerando Certificado - 101CODE</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a2740, #004080);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 60px 20px;
+      color: #c8def5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0;
+      color: #00c8ff;
+      font-weight: 800;
+      user-select: none;
+      text-shadow: none;
+    }
+
+    p {
+      font-size: 1.25rem;
+      color: #a0c8ff;
+      line-height: 1.5;
+      max-width: 480px;
+      margin: 0 auto;
+      user-select: none;
+    }
+
+    .loader {
+      border: 10px solid #234a7a;
+      border-top: 10px solid #00c8ff;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      margin: 30px auto 0;
+      animation: spin 1.1s linear infinite;
+      box-shadow: none;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .status-msg {
+      margin-top: 10px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #90c5ff;
+      user-select: none;
+    }
+
+    .btn-voltar {
+      margin-top: 40px;
+      padding: 14px 32px;
+      background-color: #00aaff;
+      color: #003b66;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.2rem;
+      width: fit-content;
+      min-width: 220px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: none;
+      transition: background 0.3s ease, transform 0.2s ease;
+      user-select: none;
+    }
+
+    .btn-voltar:hover {
+      background-color: #008ecf;
+      transform: translateY(-3px);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🏆 Gerando seu Certificado...</h1>
+  <p>Estamos preparando seu certificado de conclusão.<br>Ele será aberto em uma nova aba em instantes.</p>
+
+  <div class="loader" aria-label="Carregando certificado"></div>
+
+  <div class="status-msg" aria-live="polite">Por favor, aguarde...</div>
+
+  <button class="btn-voltar" onclick="window.location.href='dashboard.html'">Voltar ao Dashboard</button>
+
+  <script src="js/progresso.js"></script>
+  <script>
+    const { jsPDF } = window.jspdf;
+
+    // Pega dados do usuário e linguagem
+    const user = JSON.parse(localStorage.getItem("loggedInUser")) || { nome: "Aluno 101CODE", cpf: "" };
+    const urlParams = new URLSearchParams(window.location.search);
+    const linguagem = urlParams.get('linguagem') || 'Programação';
+    const data = new Date().toLocaleDateString('pt-BR');
+
+    const doc = new jsPDF({ orientation: 'landscape' });
+
+    // Fundo branco com borda azul
+    doc.setFillColor(255, 255, 255);
+    doc.rect(10, 10, 277, 190, 'F');
+
+    // Borda externa azul forte
+    doc.setLineWidth(4);
+    doc.setDrawColor(0, 102, 204);
+    doc.rect(10, 10, 277, 190);
+
+    // Borda interna azul clara
+    doc.setLineWidth(1);
+    doc.setDrawColor(100, 179, 255);
+    doc.rect(16, 16, 265, 178);
+
+    // Título
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(28);
+    doc.setTextColor(0, 51, 102);
+    doc.text("CERTIFICADO DE CONCLUSÃO", 148, 45, { align: "center" });
+
+    // Subtítulo
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text("Certificamos que", 148, 62, { align: "center" });
+
+    // Nome do aluno
+    doc.setFontSize(24);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(0, 51, 102);
+    // Para evitar corte, se o nome for muito longo, reduzir tamanho de fonte proporcionalmente
+    const maxNameWidth = 240;
+    let nomeWidth = doc.getTextWidth(user.nome.toUpperCase());
+    let nomeFontSize = 24;
+    if (nomeWidth > maxNameWidth) {
+      nomeFontSize = Math.floor(24 * maxNameWidth / nomeWidth);
+      doc.setFontSize(nomeFontSize);
+    }
+    doc.text(user.nome.toUpperCase(), 148, 80, { align: "center" });
+
+    // CPF opcional
+    if (user.cpf) {
+      doc.setFontSize(11);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(50, 50, 50);
+      doc.text(`CPF: ${user.cpf}`, 148, 88, { align: "center" });
+    }
+
+    // Texto corpo
+    const textoCorpo = `Concluiu com êxito a Trilha de ${linguagem.toUpperCase()} na plataforma 101CODE, demonstrando dedicação, empenho e excelente desempenho nas atividades propostas. Este certificado reconhece sua conquista e dedicação ao aprendizado.`;
+    const maxWidth = 260; // margem maior para evitar corte
+    const linhasTexto = doc.splitTextToSize(textoCorpo, maxWidth);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(30, 30, 30);
+    doc.text(linhasTexto, 148, 105, { align: "center", maxWidth });
+
+    // Data emissão
+    doc.setFontSize(12);
+    doc.setTextColor(0, 51, 102);
+    doc.text(`Emitido em ${data}`, 148, 160, { align: "center" });
+
+    // Linha assinatura com texto
+    doc.setLineWidth(0.7);
+    doc.setDrawColor(0, 102, 204);
+    doc.line(100, 170, 195, 170);
+    doc.setFontSize(12);
+    doc.setTextColor(0, 51, 102);
+    doc.text("Equipe 101CODE", 148, 178, { align: "center" });
+
+    // Abre o PDF em nova aba após delay para UX suave
+    setTimeout(() => {
+      window.open(doc.output('bloburl'), '_blank');
+    }, 1600);
+  </script>
+
+</body>
+</html>

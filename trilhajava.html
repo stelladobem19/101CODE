@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Revisão Completa - Trilha Java - 101CODE</title>
+  <style>
+    body {
+  background: #0a2740;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0; padding: 2rem;
+  color: #e1f0ff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scroll-behavior: smooth;
+}
+
+h1 {
+  text-align: center;
+  color: #00c8ff;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.btn-voltar {
+  background-color: #005b99;
+  color: #cceeff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  margin-bottom: 2.5rem;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.btn-voltar:hover,
+.btn-voltar:focus {
+  background-color: #008ecf;
+  color: white;
+  outline: none;
+}
+
+.cards {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 3rem;
+  max-width: 960px;
+  width: 100%;
+}
+
+.card {
+  background: #004080;
+  border-radius: 12px;
+  width: 220px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  color: #cceeff;
+}
+.card:hover {
+  transform: scale(1.05);
+  background: #007acc;
+  color: white;
+}
+
+.card img {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 1rem;
+  user-select: none;
+  pointer-events: none;
+}
+
+.card h2 {
+  color: #00c8ff;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.card p {
+  color: #bde0ff;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.btn-revisar {
+  background-color: #00c8ff;
+  color: #003b66;
+  border: none;
+  border-radius: 12px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+}
+.btn-revisar:hover,
+.btn-revisar:focus {
+  background-color: #008ecf;
+  color: white;
+  outline: none;
+}
+
+.revisao {
+  max-width: 720px;
+  width: 100%;
+  background: #004080;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  color: #cceeff;
+  display: none; /* começa escondida */
+  user-select: text;
+}
+.revisao.active {
+  display: block;
+}
+
+.revisao h2 {
+  color: #00c8ff;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #007acc;
+  padding-bottom: 0.25rem;
+  font-weight: 700;
+}
+
+.pergunta {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #007acc;
+}
+
+.pergunta strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #00bfff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.resposta {
+  font-weight: 700;
+  color: #00ff99; /* verde */
+  margin-bottom: 0.4rem;
+}
+
+.explicacao {
+  font-size: 0.95rem;
+  color: #a8d0ff;
+  line-height: 1.4;
+}
+  </style>
+</head>
+<body>
+
+  <h1>Revisão Completa - Trilha Java</h1>
+
+  <a href="dashboard.html" class="btn-voltar">Voltar ao Início</a>
+
+  <div class="cards">
+    <!-- Card Fase 1 -->
+    <div class="card" data-fase="1">
+      <img src="img/feliz.png" alt="Mascote Fase 1" />
+      <h2>Fase 1: Olá, Mundo!</h2>
+      <p>Exiba mensagens com <code>System.out.println()</code>.</p>
+      <button class="btn-revisar" onclick="mostrarRevisao(1)">Revisar</button>
+    </div>
+    <!-- Card Fase 2 -->
+    <div class="card" data-fase="2">
+      <img src="img/concentrado.png" alt="Mascote Fase 2" />
+      <h2>Fase 2: Variáveis</h2>
+      <p>Tipos básicos, declaração e constantes.</p>
+      <button class="btn-revisar" onclick="mostrarRevisao(2)">Revisar</button>
+    </div>
+    <!-- Card Fase 3 -->
+    <div class="card" data-fase="3">
+      <img src="img/escrevendo.png" alt="Mascote Fase 3" />
+      <h2>Fase 3: Condicionais</h2>
+      <p>Estruturas if, operadores lógicos e métodos.</p>
+      <button class="btn-revisar" onclick="mostrarRevisao(3)">Revisar</button>
+    </div>
+  </div>
+
+  <!-- Revisões -->
+  <section class="revisao" id="revisao-fase1">
+    <h2>Fase 1 - Olá, Mundo!</h2>
+    <div class="pergunta">
+      <strong>1. Como imprimimos 'Olá, mundo!' em Java?</strong>
+      <div class="resposta">Resposta: System.out.println("Olá, mundo!");</div>
+      <div class="explicacao">Usamos System.out.println() para imprimir texto na saída padrão em Java.</div>
+    </div>
+    <div class="pergunta">
+      <strong>2. Qual tipo armazena números inteiros em Java?</strong>
+      <div class="resposta">Resposta: int</div>
+      <div class="explicacao">O tipo int armazena números inteiros em Java.</div>
+    </div>
+    <div class="pergunta">
+      <strong>3. Qual símbolo termina uma linha de código em Java?</strong>
+      <div class="resposta">Resposta: ;</div>
+      <div class="explicacao">O ponto e vírgula encerra instruções em Java.</div>
+    </div>
+    <div class="pergunta">
+      <strong>4. Qual estrutura usamos para criar um loop que executa 10 vezes em Java?</strong>
+      <div class="resposta">Resposta: for (int i=0; i<10; i++) { }</div>
+      <div class="explicacao">O laço for executa repetidamente o bloco de código 10 vezes.</div>
+    </div>
+    <div class="pergunta">
+      <strong>5. Como declaramos um método em Java?</strong>
+      <div class="resposta">Resposta: void meuMetodo() { }</div>
+      <div class="explicacao">Métodos são declarados com tipo de retorno, nome e parênteses.</div>
+    </div>
+  </section>
+
+  <section class="revisao" id="revisao-fase2">
+    <h2>Fase 2 - Variáveis</h2>
+    <div class="pergunta">
+      <strong>1. Como declaramos uma variável do tipo inteiro em Java?</strong>
+      <div class="resposta">Resposta: int numero = 10;</div>
+      <div class="explicacao">Declaração padrão de variáveis em Java especificando tipo e valor.</div>
+    </div>
+    <div class="pergunta">
+      <strong>2. Qual a sintaxe correta para um comentário de linha única em Java?</strong>
+      <div class="resposta">Resposta: // comentário</div>
+      <div class="explicacao">Comentários de linha iniciam com duas barras.</div>
+    </div>
+    <div class="pergunta">
+      <strong>3. Como imprimimos na tela uma variável em Java?</strong>
+      <div class="resposta">Resposta: System.out.println(numero);</div>
+      <div class="explicacao">Impressão de variável usando System.out.println.</div>
+    </div>
+    <div class="pergunta">
+      <strong>4. Como criamos um método que retorna void em Java?</strong>
+      <div class="resposta">Resposta: void meuMetodo() { }</div>
+      <div class="explicacao">Método sem retorno declarado com void.</div>
+    </div>
+    <div class="pergunta">
+      <strong>5. Qual palavra-chave usamos para criar uma constante em Java?</strong>
+      <div class="resposta">Resposta: final</div>
+      <div class="explicacao">A palavra final indica que o valor não pode ser alterado.</div>
+    </div>
+  </section>
+
+  <section class="revisao" id="revisao-fase3">
+    <h2>Fase 3 - Condicionais</h2>
+    <div class="pergunta">
+      <strong>1. Como escrevemos uma condicional if em Java?</strong>
+      <div class="resposta">Resposta: if (x > 10) { ... }</div>
+      <div class="explicacao">Estrutura condicional if utiliza parênteses para a condição e chaves para o bloco.</div>
+    </div>
+    <div class="pergunta">
+      <strong>2. Qual a saída de: System.out.println(3 + 2 + "1"); ?</strong>
+      <div class="resposta">Resposta: 51</div>
+      <div class="explicacao">Operação é avaliada da esquerda para direita, somando números e concatenando string.</div>
+    </div>
+    <div class="pergunta">
+      <strong>3. Como declaramos um método em Java?</strong>
+      <div class="resposta">Resposta: void minhaFuncao()</div>
+      <div class="explicacao">Declaração de método sem retorno.</div>
+    </div>
+    <div class="pergunta">
+      <strong>4. Qual a forma correta de criar uma classe em Java?</strong>
+      <div class="resposta">Resposta: class MinhaClasse {}</div>
+      <div class="explicacao">Declaração básica de classe em Java.</div>
+    </div>
+    <div class="pergunta">
+      <strong>5. Como chamamos o método principal (ponto de entrada) de um programa Java?</strong>
+      <div class="resposta">Resposta: public static void main(String[] args)</div>
+      <div class="explicacao">Método main é o ponto de entrada de qualquer programa Java.</div>
+    </div>
+  </section>
+
+<script>
+  function mostrarRevisao(fase) {
+    // Esconde todas as revisões
+    document.querySelectorAll('.revisao').forEach(section => {
+      section.classList.remove('active');
+    });
+
+    // Mostra a revisão selecionada
+    const rev = document.getElementById(`revisao-fase${fase}`);
+    if (rev) {
+      rev.classList.add('active');
+      rev.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
+
+</body>
+</html>
