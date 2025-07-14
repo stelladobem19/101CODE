@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>101CODE - Planos</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #0a2740, #003a66);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: #00c8ff;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #66e0ff;
+    }
+       header.navbar {
+      background-color: #001d33;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      font-weight: 900;
+      font-size: 1.9rem;
+      letter-spacing: 3px;
+      color: #fff;
+      user-select: none;
+      cursor: default;
+      text-shadow: none;
+    }
+    nav a {
+      margin-left: 2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+    nav a.login-btn {
+      background: #00c8ff;
+      color: #003b66;
+      padding: 0.5rem 1.3rem;
+      border-radius: 12px;
+      font-weight: 700;
+      box-shadow: none;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    nav a.login-btn:hover {
+      background: #008ecf;
+      color: white;
+      box-shadow: none;
+    }
+
+    main {
+      flex-grow: 1;
+      max-width: 1100px;
+      margin: 3rem auto 4rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2.5rem;
+      color: #00c8ff;
+      user-select: none;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: rgba(255 255 255 / 0.1);
+      border-radius: 20px;
+      padding: 2rem 2.5rem;
+      flex: 1 1 280px;
+      max-width: 320px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      transition: transform 0.3s ease;
+      user-select: none;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 200, 255, 0.6);
+      background: rgba(0, 200, 255, 0.15);
+    }
+
+    .card.plano h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+      color: #00c8ff;
+      user-select: none;
+    }
+
+    .card.plano p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      line-height: 1.4;
+    }
+
+    .preco {
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin: 1.5rem 0;
+      color: #00e0ff;
+    }
+
+    .cta-btn {
+      background: #00c8ff;
+      color: #003b66;
+      font-weight: 700;
+      padding: 0.85rem 2.2rem;
+      border-radius: 50px;
+      box-shadow: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+      user-select: none;
+      text-align: center;
+      width: 100%;
+      max-width: 180px;
+    }
+    .cta-btn.secondary {
+      background: transparent;
+      border: 2px solid #00c8ff;
+      color: #00c8ff;
+    }
+    .cta-btn:hover {
+      background: #008ecf;
+      color: white;
+    }
+    .cta-btn.secondary:hover {
+      background: #008ecf;
+      color: white;
+      border-color: #008ecf;
+    }
+
+    /* Mascote sobreposto maior no canto superior direito, sem círculo */
+    .destaque {
+      background: rgba(0, 200, 255, 0.15);
+      box-shadow: 0 0 20px #00c8ffaa;
+      position: relative;
+      padding-top: 4rem; /* Espaço para o mascote */
+    }
+    .mascote-selo {
+      position: absolute;
+      top: -2rem;
+      right: 13rem;
+      width: 130px;
+      height: auto;
+      user-select: none;
+      pointer-events: none;
+      filter: drop-shadow(0 0 8px #00c8ffcc);
+      transition: transform 0.3s ease;
+      z-index: 10;
+    }
+    .destaque:hover .mascote-selo {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 14px #00e0ffdd);
+    }
+
+    /* Responsivo */
+    @media (max-width: 900px) {
+      main {
+        margin: 2rem 1rem 3rem;
+        padding: 0 1rem;
+      }
+      .cards {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .card {
+        max-width: 100%;
+        flex: 1 1 auto;
+      }
+      .mascote-selo {
+        width: 90px;
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+    }
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .card.plano h2 {
+        font-size: 1.5rem;
+      }
+      .preco {
+        font-size: 1.2rem;
+      }
+      .cta-btn {
+        max-width: 100%;
+      }
+      .mascote-selo {
+        width: 70px;
+        top: 0.3rem;
+        right: 0.3rem;
+      }
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem 2rem;
+      background: #001d33;
+      color: #fff;
+      font-size: 0.9rem;
+      user-select: none;
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">101CODE</div>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="planos.html">Planos</a>
+      <a href="contato.html">Contato</a>
+      <a href="login.html" class="login-btn">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section">
+      <h1>Escolha o plano ideal para você</h1>
+      <div class="cards">
+
+        <div class="card plano">
+          <h2>Gratuito</h2>
+          <p>Acesso às trilhas básicas</p>
+          <p>Exercícios introdutórios</p>
+          <p>Sem certificação</p>
+          <p class="preco">R$ 0,00 / mês</p>
+          <a href="login.html" class="cta-btn secondary">Começar</a>
+        </div>
+
+        <div class="card plano destaque">
+          <img src="img/valores.png" alt="Mascote 101CODE" class="mascote-selo" />
+          <h2>Premium</h2>
+          <p>Trilhas completas desbloqueadas</p>
+          <p>Inclui certificação digital</p>
+          <p>Acompanhamento do progresso</p>
+          <p class="preco">R$ 29,90 / mês</p>
+          <a href="login.html" class="cta-btn">Assinar</a>
+        </div>
+
+        <div class="card plano">
+          <h2>Super Premium</h2>
+          <p>Inclui mentorias com especialistas</p>
+          <p>Conteúdos exclusivos + bônus</p>
+          <p>Certificados + reconhecimento</p>
+          <p class="preco">R$ 59,90 / mês</p>
+          <a href="login.html" class="cta-btn secondary">Assinar</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 101CODE - Todos os direitos reservados</p>
+  </footer>
+</body>
+</html>

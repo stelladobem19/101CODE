@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>101CODE - Início</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #0a2740, #003a66);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: #00c8ff;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #66e0ff;
+    }
+    header.navbar {
+      background-color: #001d33;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      font-weight: 900;
+      font-size: 1.9rem;
+      letter-spacing: 3px;
+      color: #fff;
+      user-select: none;
+      cursor: default;
+      text-shadow: none;
+    }
+    nav a {
+      margin-left: 2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+    nav a.login-btn {
+      background: #00c8ff;
+      color: #003b66;
+      padding: 0.5rem 1.3rem;
+      border-radius: 12px;
+      font-weight: 700;
+      box-shadow: none;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    nav a.login-btn:hover {
+      background: #008ecf;
+      color: white;
+      box-shadow: none;
+    }
+
+    main {
+      flex-grow: 1;
+      max-width: 1200px;
+      margin: 2rem auto 3rem;
+      padding: 0 2rem;
+    }
+
+    /* HERO */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center; /* centraliza horizontalmente */
+      background: rgba(255 255 255 / 0.05);
+      border-radius: 20px;
+      padding: 2rem 3rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+      text-align: center; /* centraliza texto */
+      position: relative;
+    }
+    .hero-text {
+      flex: 1 1 400px;
+      color: #fff;
+      user-select: none;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .hero-text h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      text-shadow: none;
+      color: #fff;
+    }
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #fff;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: #00c8ff;
+      color: #003b66;
+      font-weight: 700;
+      padding: 0.85rem 2.2rem;
+      margin: 0.3rem 0.6rem;
+      border-radius: 50px;
+      box-shadow: none;
+      transition: background 0.3s ease, color 0.3s ease;
+      user-select: none;
+      cursor: pointer;
+      border: none;
+    }
+    .cta-btn:hover {
+      background: #008ecf;
+      color: white;
+      box-shadow: none;
+    }
+    .hero-img {
+      flex: 1 1 350px;
+      display: flex;
+      justify-content: center;
+      user-select: none;
+      pointer-events: none;
+      position: relative;
+      z-index: 2; /* sobreposto */
+      margin-top: 1rem;
+    }
+    .hero-character {
+      max-width: 100%;
+      max-height: 320px;
+      filter: none;
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+      cursor: default;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-character:hover {
+      transform: scale(1.05);
+      filter: none;
+    }
+
+    /* Seções */
+    section.section {
+      margin-bottom: 4rem;
+      background: rgba(255 255 255 / 0.06);
+      border-radius: 20px;
+      padding: 2rem 3rem;
+      text-align: center; /* centraliza texto */
+      position: relative;
+      overflow: visible;
+    }
+    section.alt-bg {
+      background: rgba(0 200 255 / 0.1);
+    }
+    section.alt-bg1 {
+      background: rgba(255 255 255 / 0.1);
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #fff;
+      text-shadow: none;
+      user-select: none;
+    }
+    section p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #fff;
+      max-width: 750px;
+      margin-left: auto;
+      margin-right: auto;
+      user-select: text;
+    }
+
+    /* Cards da seção COMO FUNCIONA */
+    .funciona-container {
+      display: flex;
+      align-items: center;
+      justify-content: center; /* centraliza container */
+      gap: 2rem;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      flex: 1 1 300px;
+      max-width: 480px;
+      text-align: left; /* mantém texto dos cards alinhado à esquerda */
+    }
+    .cards-col {
+      flex-direction: column;
+    }
+    .card {
+      background: #004080;
+      padding: 1.5rem 2rem;
+      border-radius: 18px;
+      transition: transform 0.3s ease;
+      cursor: default;
+      color: #fff;
+      user-select: none;
+      border: none;
+      box-shadow: none;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      color: #fff;
+      background: #0066cc;
+      box-shadow: none;
+    }
+    .card h3 {
+      margin-bottom: 0.7rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-shadow: none;
+      color: #fff;
+    }
+    .card p {
+      font-weight: 500;
+      line-height: 1.4;
+      color: #fff;
+    }
+
+    /* Hero images secundárias (como equipe, telefone) */
+    .hero-img1 {
+      max-width: 300px;
+      margin: 1.5rem auto 0;
+      user-select: none;
+      pointer-events: none;
+      position: relative;
+      z-index: 3; /* mais sobreposto */
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+      filter: none;
+    }
+    .hero-character1 {
+      max-width: 100%;
+      border-radius: 20px;
+      cursor: default;
+    }
+    .hero-character1:hover {
+      transform: scale(1.05);
+      filter: none;
+    }
+
+    /* Carousel mascote */
+    .carousel {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding: 1rem 0;
+      scrollbar-width: thin;
+      scrollbar-color: #00c8ff #003a66;
+    }
+    .carousel::-webkit-scrollbar {
+      height: 8px;
+    }
+    .carousel::-webkit-scrollbar-thumb {
+      background-color: #00c8ff;
+      border-radius: 4px;
+    }
+    .carousel img {
+      max-height: 120px;
+      border-radius: 15px;
+      filter: none;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+      border: none;
+      box-shadow: none;
+    }
+    .carousel img:hover {
+      transform: scale(1.2);
+      filter: none;
+      z-index: 10;
+      position: relative;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem 2rem;
+      background: #001d33;
+      color: #fff;
+      font-size: 0.9rem;
+      user-select: none;
+      box-shadow: none;
+    }
+
+    /* Responsivo */
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        padding: 2rem 1.5rem;
+        text-align: center;
+      }
+      .hero-text {
+        text-align: center;
+      }
+      .hero-text h1 {
+        font-size: 2.3rem;
+      }
+      nav a {
+        margin-left: 1rem;
+        font-size: 1rem;
+      }
+      main {
+        padding: 0 1rem;
+        margin: 1.5rem auto 3rem;
+      }
+      .funciona-container {
+        flex-direction: column;
+        justify-content: center;
+      }
+      .cards {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        max-width: 100%;
+        text-align: left;
+      }
+      .card {
+        flex: 1 1 250px;
+      }
+      .hero-img, .hero-img1 {
+        max-width: 80%;
+        margin-top: 1.5rem;
+      }
+      .hero-character, .hero-character1 {
+        max-height: 250px;
+      }
+    }
+    @media (max-width: 400px) {
+      .hero-text h1 {
+        font-size: 1.8rem;
+      }
+      .hero-text p {
+        font-size: 1rem;
+      }
+      .cta-btn {
+        font-size: 0.9rem;
+        padding: 0.7rem 1.5rem;
+      }
+      nav {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">101CODE</div>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="planos.html">Planos</a>
+      <a href="contato.html">Contato</a>
+      <a href="login.html" class="login-btn">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Aprenda Programação de Forma Divertida 🎮</h1>
+        <p>Transforme sua jornada com uma plataforma gamificada, prática e envolvente. Ideal para iniciantes e entusiastas de tecnologia!</p>
+        <a href="planos.html" class="cta-btn">Comece agora</a>
+        <a href="login.html" class="cta-btn">Já tenho uma conta</a>
+      </div>
+      <div class="hero-img">
+        <img src="img/Mascote.png" alt="Mascote pinguim 101CODE" class="hero-character"/>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="section alt-bg">
+      <h2>Sobre a 101CODE</h2>
+      <p>A 101CODE é uma plataforma interativa de ensino de programação criada por alunos da PUC Minas - Poços de Caldas.</p>
+      <p>Inspirada no Duolingo, nossa missão é democratizar o aprendizado de programação por meio de gamificação, desafios práticos e recompensas.</p>
+      <p><strong>Equipe Criadora:</strong> Jane Harumi Yamamoto, Lucélia Ribeiro de Moraes e Stella Maris Gonçalves do Bem.</p>
+      <div class="hero-img">
+        <img src="img/equipe1.png" alt="Equipe 101CODE" class="hero-character"/>
+      </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section class="section">
+      <h2>Como Funciona?</h2>
+      <div class="funciona-container">
+        <div class="hero-img">
+          <img src="img/funcionamento.png" alt="Mascote pinguim 101CODE" class="hero-character"/>
+        </div>
+        <div class="cards cards-col">
+          <div class="card">
+            <h3>🧩 Aprenda por trilhas</h3>
+            <p>Trilhas guiadas com exercícios práticos em linguagens como Python, Java, C e mais.</p>
+          </div>
+          <div class="card">
+            <h3>🏆 Desafios e Recompensas</h3>
+            <p>Ganhe pontos, conquistas e suba de nível enquanto aprende.</p>
+          </div>
+          <div class="card">
+            <h3>📜 Certificação</h3>
+            <p>Obtenha certificados ao completar trilhas e projetos práticos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISSÃO E VISÃO -->
+    <section class="section alt-bg1">
+      <h2>Missão & Visão</h2>
+      <p><strong>Missão:</strong> Inovar no ensino de programação com acessibilidade, motivação e impacto real.</p>
+      <p><strong>Visão:</strong> Ser referência global em educação tecnológica gamificada.</p>
+      <div class="hero-img1">
+        <img src="img/escrevendo.png" alt="Equipe 101CODE" class="hero-character1"/>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="section">
+      <h2>Fale Conosco</h2>
+      <p>Tem dúvidas ou sugestões? Estamos prontos para te ouvir!</p>
+      <a href="contato.html" class="cta-btn secondary" style="display: inline-block; margin: 1rem auto;">Entrar em Contato</a>
+      <div class="hero-img1">
+        <img src="img/telefone.png" alt="Mascote pinguim 101CODE" class="hero-character1"/>
+      </div>
+    </section>
+
+    <!-- MASCOTE CAROUSEL -->
+    <section class="section alt-bg">
+      <h2>🐧 Conheça nosso mascote!</h2>
+      <div class="carousel" aria-label="Galeria de imagens do mascote 101CODE">
+        <img src="img/Acenando.png" alt="Pinguim acenando">
+        <img src="img/Triste.png" alt="Pinguim triste">
+        <img src="img/confuso.png" alt="Pinguim confuso">
+        <img src="img/Mascote.png" alt="Pinguim mascote">
+        <img src="img/concentrado.png" alt="Pinguim concentrado">
+        <img src="img/feliz.png" alt="Pinguim feliz">
+        <img src="img/lupa.png" alt="Pinguim com lupa">
+        <img src="img/valores.png" alt="Pinguim valores">
+        <img src="img/Detetive.png" alt="Pinguim detetive">
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 101CODE - Todos os direitos reservados</p>
+  </footer>
+</body>
+</html>

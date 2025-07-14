@@ -1,0 +1,405 @@
+/* Base */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #002f5f; /* Fundo azul escuro uniforme */
+  color: #fff; /* Texto branco puro */
+}
+
+/* Navbar */
+.navbar {
+  background: #002f5f;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 3rem; /* maior espaçamento lateral */
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: none; /* remove sombras para uniformizar */
+}
+
+.navbar .logo {
+  font-weight: 900;
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: #00c8ff;
+  user-select: none;
+  cursor: default;
+}
+
+.navbar nav a {
+  margin: 0 1.5rem;
+  color: #e1f0ff; /* azul claro suave */
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navbar nav a:hover {
+  color: #00c8ff;
+}
+
+.navbar nav .login-btn {
+  background: #00c8ff;
+  padding: 0.55rem 1.3rem;
+  border-radius: 12px;
+  color: #003b66;
+  font-weight: 700;
+  box-shadow: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.navbar nav .login-btn:hover {
+  background: #008ecf;
+  color: white;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 4rem;
+  background: rgba(0, 200, 255, 0.1);
+  border-radius: 20px;
+  gap: 2rem;
+  flex-wrap: wrap;
+  text-align: center; /* centraliza texto */
+  color: #e1f0ff;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  margin-bottom: 1.2rem;
+  font-weight: 900;
+  color: #00c8ff;
+  user-select: none;
+}
+
+.hero-text p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #d5e9ff;
+}
+
+.hero-img {
+  flex: 1;
+  text-align: center;
+  min-width: 280px;
+  position: relative;
+}
+
+.hero-character {
+  width: 350px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  filter: none !important; /* remove filtro sombra */
+  box-shadow: none !important;
+  transition: transform 0.3s ease;
+}
+
+.hero-character:hover {
+  transform: scale(1.05);
+}
+
+/* Botões */
+.cta-btn {
+  background: #00c8ff;
+  color: #003b66;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+  user-select: none;
+  box-shadow: none !important;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.cta-btn:hover {
+  background: #008ecf;
+  color: white;
+}
+
+/* Botão secundário */
+.cta-btn.secondary {
+  background: #004080;
+  color: #e1f0ff;
+}
+
+.cta-btn.secondary:hover {
+  background: #0066cc;
+  color: white;
+}
+
+/* Seções */
+main {
+  padding: 3rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #e1f0ff;
+}
+
+.section {
+  padding: 3rem 2rem;
+  text-align: center;
+  background: rgba(0, 200, 255, 0.05);
+  border-radius: 20px;
+  margin-bottom: 4rem;
+  box-shadow: none;
+  color: #e1f0ff;
+}
+
+/* Fundos alternados para seções */
+.alt-bg {
+  background: rgba(255 255 255 / 0.1);
+  box-shadow: none;
+}
+
+.alt-bg1 {
+  background: rgba(0, 200, 255, 0.1);
+  box-shadow: none;
+}
+
+/* Cards */
+.cards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.card {
+  background: #003a66;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 400px;
+  box-shadow: none;
+  position: relative;
+  text-align: center;
+  color: #cce7ff;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  cursor: default;
+}
+
+.card:hover {
+  background: #0059b3;
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+.card h2, .card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #00c8ff;
+}
+
+.card p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+/* Plano destaque */
+.plano.destaque {
+  border: 2px solid #00c8ff;
+  background: rgba(0, 200, 255, 0.15);
+  box-shadow: none;
+}
+
+/* Mascote sobreposto nos cards */
+.mascote-selo {
+  position: absolute;
+  top: -30px;
+  right: -20px;
+  width: 90px;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.mascote-selo img {
+  width: 100%;
+  height: auto;
+  border-radius: 0; /* remove círculo */
+}
+
+/* Preço */
+.preco {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 1rem 0;
+  color: #00c8ff;
+}
+
+/* Formulários */
+.login-form {
+  max-width: 450px;
+  margin: 0 auto;
+  background: #004080;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: none;
+  color: #e1f0ff;
+}
+
+.login-form input,
+.login-form textarea {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  background: #003153;
+  color: #cce7ff;
+}
+
+.login-form input::placeholder,
+.login-form textarea::placeholder {
+  color: #80bfff;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 12px;
+  background: #00c8ff;
+  color: #003b66;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: none;
+}
+
+.login-form button:hover {
+  background: #008ecc;
+  color: white;
+}
+
+/* Contato - info lado direito */
+.contato-info {
+  flex: 1;
+  min-width: 280px;
+  background: #003a66;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: none;
+  color: #cce7ff;
+  text-align: left;
+}
+
+.contato-info h3,
+.contato-info h4 {
+  margin-bottom: 1rem;
+  color: #00c8ff;
+}
+
+.contato-info p,
+.contato-info a {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: #cce7ff;
+}
+
+.contato-info a:hover {
+  color: #00aaff;
+  text-decoration: underline;
+}
+
+/* Mascote contato */
+.mascote-selo-contato {
+  width: 200px;
+  min-width: 200px;
+  margin-left: 1.5rem;
+  align-self: flex-start;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+.mascote-selo-contato img {
+  width: 100%;
+  height: auto;
+  border-radius: 0; /* remove borda/círculo */
+}
+
+/* Container contato geral */
+.contato-container {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    padding: 2rem 2rem;
+  }
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+  .hero-text p {
+    font-size: 1.2rem;
+  }
+  .cards {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .contato-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .contato-info {
+    text-align: center;
+  }
+  .mascote-selo-contato {
+    margin: 1rem auto 0;
+  }
+  .navbar nav a {
+    margin: 0 1rem;
+    font-size: 1rem;
+  }
+  .navbar {
+    padding: 1rem 2rem;
+  }
+}
+
+/* Scrollbar customizado para carrossel */
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 2rem;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel img {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  scroll-snap-align: center;
+  border-radius: 20px;
+  background: #003a66;
+  padding: 1rem;
+  box-shadow: none;
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil - 101CODE</title>
+  <style>
+    body {
+      background: #0a2740;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      text-align: center;
+    }
+      .navbar {
+      background: #001d33;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    }
+    .navbar .logo {
+      font-size: 1.8rem;
+      color: #ffffff;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .navbar nav a {
+      margin-left: 1rem;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .navbar nav a:hover {
+      color: #00c8ff;
+    }
+
+    .navbar nav a.login-btn {
+  background-color: #4d8bff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-left: 1rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.navbar nav a.login-btn:hover {
+  background-color: #cc0000;
+  color: white;
+}
+    .profile-section, .progress-section {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: #004080;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      text-align: left;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #00c8ff;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 1rem;
+      display: block;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: none;
+      margin-top: 0.3rem;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: none;
+      background: #00c8ff;
+      color: #003b66;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #008ecf;
+      color: white;
+    }
+    .progresso-linguagem {
+      margin-bottom: 1.5rem;
+      background: #005b99;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .progresso-linguagem h3 {
+      color: #00c8ff;
+      margin-top: 0;
+    }
+    .progresso-linguagem p {
+      margin: 0.3rem 0;
+    }
+    #statusMsg {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">101CODE</div>
+    <nav>
+      <a href="dashboard.html">Início</a>
+      <a href="perfil.html">Perfil</a>
+      <a href="comecar.html">Comece Aqui</a>
+      <a href="index.html" class="login-btn">Sair</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Dados do Usuário -->
+    <section class="profile-section">
+      <h2>Meu Perfil</h2>
+
+      <form id="perfilForm">
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" required />
+
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" required />
+
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" required />
+
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" required />
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" required />
+
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" required />
+
+        <label for="preferencia">Linguagem de Programação Preferida:</label>
+        <select id="preferencia">
+          <option value="">Selecione...</option>
+          <option value="Python">Python</option>
+          <option value="Java">Java</option>
+          <option value="C">C</option>
+        </select>
+
+        <button type="submit">Salvar Alterações</button>
+        <p id="statusMsg"></p>
+      </form>
+    </section>
+
+    <!-- Progresso -->
+    <section class="progress-section">
+      <h2>Seu Progresso</h2>
+      <div id="progressoContainer"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 101CODE - Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    const linguagens = ['java', 'c', 'python'];
+
+    // Carregar dados do perfil
+    window.onload = function() {
+      document.getElementById('nome').value = localStorage.getItem('cadastro_nome') || '';
+      document.getElementById('telefone').value = localStorage.getItem('cadastro_telefone') || '';
+      document.getElementById('idade').value = localStorage.getItem('cadastro_idade') || '';
+      document.getElementById('cpf').value = localStorage.getItem('cadastro_cpf') || '';
+      document.getElementById('email').value = localStorage.getItem('cadastro_email') || '';
+      document.getElementById('senha').value = localStorage.getItem('cadastro_senha') || '';
+      document.getElementById('preferencia').value = localStorage.getItem('cadastro_preferencia') || '';
+
+      carregarProgresso();
+    };
+
+    // Salvar dados
+    document.getElementById('perfilForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      localStorage.setItem('cadastro_nome', document.getElementById('nome').value);
+      localStorage.setItem('cadastro_telefone', document.getElementById('telefone').value);
+      localStorage.setItem('cadastro_idade', document.getElementById('idade').value);
+      localStorage.setItem('cadastro_cpf', document.getElementById('cpf').value);
+      localStorage.setItem('cadastro_email', document.getElementById('email').value);
+      localStorage.setItem('cadastro_senha', document.getElementById('senha').value);
+      localStorage.setItem('cadastro_preferencia', document.getElementById('preferencia').value);
+
+      document.getElementById('statusMsg').style.color = '#00ff99';
+      document.getElementById('statusMsg').textContent = 'Dados salvos com sucesso!';
+      setTimeout(() => { document.getElementById('statusMsg').textContent = ''; }, 3000);
+    });
+
+    // Carregar Progresso
+    function carregarProgresso() {
+      const container = document.getElementById('progressoContainer');
+      linguagens.forEach(lang => {
+        let fasesConcluidas = 0;
+        let ultimaFase = localStorage.getItem(lang + '_ultima_fase') || 'Nenhuma';
+        let ultimaPergunta = 'Nenhuma';
+
+        for (let i = 1; i <= 3; i++) {
+          if (localStorage.getItem(lang + '_fase' + i + '_done') === 'true') {
+            fasesConcluidas++;
+          }
+        }
+
+        if (ultimaFase !== 'Nenhuma') {
+          let pergunta = localStorage.getItem(lang + '_fase' + ultimaFase + '_pergunta');
+          if (pergunta !== null) {
+            ultimaPergunta = `Questão ${parseInt(pergunta) + 1}`;
+          }
+        }
+
+        container.innerHTML += `
+          <div class="progresso-linguagem">
+            <h3>${lang.toUpperCase()}</h3>
+            <p>Fases concluídas: ${fasesConcluidas}/3</p>
+            <p>Última fase acessada: ${ultimaFase}</p>
+            <p>Última pergunta: ${ultimaPergunta}</p>
+          </div>
+        `;
+      });
+    }
+  </script>
+
+</body>
+</html>

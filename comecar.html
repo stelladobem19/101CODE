@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comece Aqui - 101CODE</title>
+  <style>
+    body {
+      background: #0a2740;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+    }
+    header.navbar {
+      width: 100%;
+      background: #001d33;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      color: white;
+    }
+    header.navbar .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+    }
+    header.navbar nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 1rem;
+      transition: color 0.3s ease;}
+      
+      .navbar nav a.login-btn {
+  background-color: #4d8bff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-left: 1rem;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+    
+    header.navbar nav a:hover {
+      color: #00c8ff;
+    }
+    main {
+      flex-grow: 1;
+      max-width: 600px;
+      width: 90%;
+      background: #004080;
+      border-radius: 12px;
+      margin: 2rem auto 3rem;
+      padding: 2rem;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    h1 {
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      font-size: 2rem;
+      text-align: center;
+    }
+    .progress-bar-container {
+      width: 100%;
+      background: #005b99;
+      border-radius: 12px;
+      height: 20px;
+      margin-bottom: 2rem;
+      box-shadow: inset 0 0 6px #004a80;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      background: #00c8ff;
+      height: 100%;
+      width: 0%;
+      border-radius: 12px;
+      transition: width 0.5s ease;
+    }
+    .question-container {
+      width: 100%;
+      color: #e1f0ff;
+      user-select: none;
+    }
+    .question-title {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      min-height: 3.6rem;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .option-label {
+      background: #0059b3;
+      padding: 1rem 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    .option-label:hover {
+      background: #0077e6;
+    }
+    input[type="radio"] {
+      display: none;
+    }
+    input[type="radio"]:checked + .option-label {
+      background: #00c8ff;
+      color: #003b66;
+      font-weight: 700;
+      /* Removed box-shadow for cleaner look */
+    }
+    .buttons {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    button {
+      background: #00c8ff;
+      border: none;
+      border-radius: 12px;
+      padding: 0.8rem 2rem;
+      font-weight: 700;
+      color: #003b66;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      user-select: none;
+      min-width: 120px;
+    }
+    button:disabled {
+      background: #004a6b;
+      cursor: not-allowed;
+      color: #99cfe5;
+    }
+    button:hover:not(:disabled) {
+      background: #008ecf;
+      color: white;
+    }
+    .result {
+      margin-top: 2rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #00ff99;
+      text-align: center;
+    }
+    .btn-home {
+      margin-top: 1.5rem;
+      background: #00ff99;
+      color: #004a00;
+      box-shadow: none;
+    }
+    .btn-home:hover {
+      background: #00cc77;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">101CODE</div>
+    <nav>
+      <a href="dashboard.html">Início</a>
+      <a href="perfil.html">Perfil</a>
+      <a href="comecar.html">Comece Aqui</a>
+      <a href="index.html" class="login-btn">Sair</a>
+    </nav>
+  </header>
+
+<main>
+  <h1>Qual a melhor linguagem para você começar?</h1>
+
+  <div class="progress-bar-container" aria-label="Progresso do quiz">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+
+  <form id="quizForm" class="question-container" aria-live="polite" aria-atomic="true">
+
+    <!-- Perguntas geradas por JS -->
+
+  </form>
+
+  <div class="buttons">
+    <button id="prevBtn" disabled>Anterior</button>
+    <button id="nextBtn" disabled>Próximo</button>
+  </div>
+
+  <div class="result" id="result" aria-live="polite" aria-atomic="true"></div>
+</main>
+
+<script>
+  const perguntas = [
+    {
+      pergunta: "1. Qual seu principal objetivo ao aprender programação?",
+      opcoes: [
+        { texto: "Desenvolver aplicativos e sistemas robustos para empresas", valor: "java" },
+        { texto: "Entender como o computador funciona por dentro e trabalhar com sistemas embarcados", valor: "c" },
+        { texto: "Criar projetos rápidos, automações e trabalhar com dados", valor: "python" }
+      ]
+    },
+    {
+      pergunta: "2. Qual dessas áreas mais te interessa?",
+      opcoes: [
+        { texto: "Desenvolvimento Web e Aplicativos Android", valor: "java" },
+        { texto: "Programação de hardware, drivers e sistemas operacionais", valor: "c" },
+        { texto: "Ciência de Dados, Machine Learning e automação", valor: "python" }
+      ]
+    },
+    {
+      pergunta: "3. Como você prefere aprender?",
+      opcoes: [
+        { texto: "Seguindo regras claras e estruturas definidas", valor: "java" },
+        { texto: "Entendendo o funcionamento detalhado do sistema", valor: "c" },
+        { texto: "Experimentando e criando coisas rapidamente", valor: "python" }
+      ]
+    },
+    {
+      pergunta: "4. Qual seu nível atual de experiência em programação?",
+      opcoes: [
+        { texto: "Sou iniciante, quero algo simples para começar", valor: "python" },
+        { texto: "Tenho algum conhecimento, quero algo estruturado", valor: "java" },
+        { texto: "Já entendo conceitos de baixo nível e quero aprofundar", valor: "c" }
+      ]
+    },
+    {
+      pergunta: "5. Qual desses projetos você gostaria de desenvolver?",
+      opcoes: [
+        { texto: "Aplicativos empresariais e jogos Android", valor: "java" },
+        { texto: "Programas que interagem diretamente com o hardware", valor: "c" },
+        { texto: "Scripts, automações e análise de dados", valor: "python" }
+      ]
+    }
+  ];
+
+  const quizForm = document.getElementById('quizForm');
+  const progressBar = document.getElementById('progressBar');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const resultDiv = document.getElementById('result');
+
+  let currentQuestion = 0;
+  const answers = Array(perguntas.length).fill(null);
+
+  function mostrarPergunta(index) {
+    const p = perguntas[index];
+    quizForm.innerHTML = '';
+    resultDiv.textContent = '';
+    prevBtn.style.display = 'inline-block';
+    nextBtn.style.display = 'inline-block';
+
+    const perguntaEl = document.createElement('div');
+    perguntaEl.className = 'question-title';
+    perguntaEl.textContent = p.pergunta;
+    quizForm.appendChild(perguntaEl);
+
+    const optionsDiv = document.createElement('div');
+    optionsDiv.className = 'options';
+
+    p.opcoes.forEach((opcao, i) => {
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'option';
+      input.id = `option${i}`;
+      input.value = opcao.valor;
+      input.checked = answers[index] === opcao.valor;
+
+      input.addEventListener('change', () => {
+        answers[index] = opcao.valor;
+        atualizarBotoes();
+      });
+
+      const label = document.createElement('label');
+      label.className = 'option-label';
+      label.setAttribute('for', `option${i}`);
+      label.textContent = opcao.texto;
+
+      optionsDiv.appendChild(input);
+      optionsDiv.appendChild(label);
+    });
+
+    quizForm.appendChild(optionsDiv);
+
+    // Atualiza barra de progresso
+    const progressoPercent = ((index) / (perguntas.length)) * 100;
+    progressBar.style.width = progressoPercent + '%';
+
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = !answers[index];
+  }
+
+  function atualizarBotoes() {
+    nextBtn.disabled = !answers[currentQuestion];
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentQuestion > 0) {
+      currentQuestion--;
+      mostrarPergunta(currentQuestion);
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (!answers[currentQuestion]) return;
+    if (currentQuestion < perguntas.length - 1) {
+      currentQuestion++;
+      mostrarPergunta(currentQuestion);
+    } else {
+      mostrarResultado();
+    }
+  });
+
+  function mostrarResultado() {
+    // Preenche barra até 100%
+    progressBar.style.width = '100%';
+
+    // Calcula a linguagem recomendada
+    const scores = { java: 0, c: 0, python: 0 };
+    answers.forEach(valor => {
+      if (scores[valor] !== undefined) {
+        scores[valor]++;
+      }
+    });
+    const maxScore = Math.max(scores.java, scores.c, scores.python);
+    const bestLanguages = Object.keys(scores).filter(lang => scores[lang] === maxScore);
+    let recomendado;
+    if (bestLanguages.length === 1) {
+      recomendado = bestLanguages[0];
+    } else {
+      recomendado = 'python'; // Empate, escolhe Python
+    }
+    const linguagemNome = {
+      java: 'Java',
+      c: 'C',
+      python: 'Python'
+    };
+    quizForm.innerHTML = '';
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+    resultDiv.innerHTML = `Recomendamos que você comece por: <strong>${linguagemNome[recomendado]}</strong>!`;
+
+    const btnHome = document.createElement('button');
+    btnHome.textContent = 'Ir para Página Inicial';
+    btnHome.className = 'btn-home';
+    btnHome.addEventListener('click', () => {
+      window.location.href = 'dashboard.html';
+    });
+    resultDiv.appendChild(btnHome);
+  }
+
+  // Inicializa
+  mostrarPergunta(currentQuestion);
+</script>
+
+</body>
+</html>
