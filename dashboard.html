@@ -332,7 +332,7 @@
       box-shadow: 0 0 10px #00c8ffaa;
     }
 
-    /* Nova área de desafios expandida - escondida por padrão */
+    
     #desafiosConteudo {
       max-height: 0;
       overflow: hidden;
@@ -346,7 +346,7 @@
       user-select: text;
     }
     #desafiosConteudo.show {
-      max-height: 500px; /* ajuste conforme conteúdo */
+      max-height: 500px; 
       padding: 1rem 1.5rem;
     }
     #desafiosConteudo ul {
@@ -561,7 +561,7 @@
       linguagens.forEach(lang => {
         for(let i = 1; i <= 3; i++) {
           if(localStorage.getItem(lang + '_fase' + i + '_done') === 'true') {
-            pontos += 10; // por exemplo, 10 pontos por fase concluída
+            pontos += 10; 
           }
         }
       });
@@ -576,7 +576,7 @@
 
     atualizarConquistas();
 
-    // Toggle área desafios (nova funcionalidade)
+    // Toggle área desafios
     function toggleDesafios() {
       const expanded = desafiosCard.getAttribute('aria-expanded') === 'true';
       if (expanded) {
@@ -616,7 +616,6 @@
         status.textContent = 'Por favor, escreva algo antes de enviar.';
         return;
       }
-      // Aqui você pode implementar envio via API ou backend, por enquanto só exibe mensagem
       status.style.color = '#00ff99';
       status.textContent = 'Obrigado pelo seu feedback!';
       document.getElementById('feedbackText').value = '';
